@@ -1,0 +1,16 @@
+-- SQL pendente (ainda NÃO aplicado no banco).
+-- A etapa 5.2 foi aplicada em drizzle/migrations/0002_etapa5_2_upload_simulacoes_bases.sql.
+-- Daqui em diante (sem créditos do Lovable), mudança no banco só combinada antes com o Matheus,
+-- para ele aplicar pelo SQL editor do Cloud. Nada de apagar.
+--
+-- Aplicados pelo SQL editor (registrados em drizzle/migrations, sem journal):
+--   0002a_lojas_participacao.sql (parte B), 0002b_hierarquia_gerentes.sql (parte C),
+--   0002c_periodo_base_livre.sql (data da base livre, 11/10/2026),
+--   0002d_divergencias_disponibilidade.sql (parte F1b, 11/10/2026),
+--   0002e_acompanhamento_dashboard.sql (parte F2a, 11/10/2026; conferido: 23 regras acompanhamento_ler),
+--   0002f_cidade_uf_resumo_lojas.sql (ajuste do dashboard, 12/10/2026),
+--   0002g_rls_uma_vez_por_consulta.sql (revisão de consumo, item 1, 12/10/2026; conferência vazia) e
+--   0002h_gravacao_direta.sql, 0002i_nome_completo_lojas.sql, 0002j_f2b_vendas.sql
+--   (12/10/2026, juntos pelo banco/script_unico_0002h-0002j.sql; conferência com tudo true).
+--   0002k_niveis_e_estoque_do_gerente.sql (P3 e P4, 13/10/2026; conferência com tudo true).
+-- Nada pendente.

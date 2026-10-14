@@ -1,0 +1,79 @@
+<div class="app">
+<aside class="side" aria-label="Menu">
+  <div class="brand">
+    <div class="logo" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M7 11h18l-1.4 15.2a2 2 0 0 1-2 1.8H10.4a2 2 0 0 1-2-1.8L7 11Z" fill="#ffffff" fill-opacity=".92"/><path d="M11.5 11V9.5a4.5 4.5 0 0 1 9 0V11" stroke="#0f2747" stroke-width="2" stroke-linecap="round"/><path d="M16 15.5v7M12.5 19h7" stroke="#137a4b" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+    <div><div class="bname">Sacola Surpresa</div><div class="bsub">Gentil Negócios</div></div>
+  </div>
+  <div class="cyc"><label class="lab" for="ciclo">Ciclo do planejamento</label><select id="ciclo"><option value="15">Ciclo 15 · 16/10 a 01/11</option><option value="16">Ciclo 16 · 02/11 a 29/11</option><option value="17">Ciclo 17 · 30/11 a 25/12</option></select></div>
+  <nav class="menu" role="tablist" aria-label="Seções">
+    <button class="mi" role="tab" data-t="painel" type="button"><span class="ic">▤</span>Dados gerais</button>
+    <button class="mi" role="tab" data-t="limites" type="button"><span class="ic">▥</span>Limites e metas</button>
+    <button class="mi" role="tab" data-t="regras" type="button"><span class="ic">✎</span>Regras do mix</button>
+    <button class="mi" role="tab" data-t="mix" type="button"><span class="ic">◈</span>Mix</button>
+    <button class="mi" role="tab" data-t="como" type="button"><span class="ic">?</span>Como funciona</button>
+  </nav>
+  <div class="sideact">
+    <button class="btn" id="runBtn" type="button">Gerar mixes</button>
+    <button class="btn ghost sm" id="resetBtn" type="button">Restaurar padrões</button>
+  </div>
+</aside>
+
+<main class="main">
+  <header class="phead"><div><h1 id="pTitle">Dados gerais</h1><div class="sub" id="pSub"></div></div><div class="badge" id="periodBadge"></div></header>
+
+  <section id="v-painel"></section>
+
+  <section id="v-limites" hidden>
+    <div class="card" style="margin-bottom:16px"><div class="step"><i>1</i> Meta da estratégia Sacola Surpresa</div>
+      <p class="note" style="margin-top:0">Digite quanto a Sacola Surpresa precisa trazer até 25/12 (a parte do GAP que cabe a esta estratégia) e clique em <b>Confirmar meta</b>. A meta é dividida entre os ciclos e, dentro de cada ciclo, entre as praças e as lojas.</p>
+      <div class="fields" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))">
+        <div class="field"><label for="metaTot">Meta da estratégia até 25/12 (R$)</label><input type="number" id="metaTot" step="50000"></div>
+        <div class="field"><label for="metaModo">Divisão entre ciclos</label><select id="metaModo"><option value="saz">Pelo peso de cada ciclo nas vendas de 2025</option><option value="lin">Proporcional aos dias</option><option value="man">Digitar a meta de cada ciclo</option></select></div>
+        <div class="field"><label for="divBase">Divisão entre praças e lojas</label><select id="divBase"><option value="fat">Pelo faturamento (jul–set/26)</option><option value="vend">Pelo número de vendedoras</option></select></div>
+        <div class="field"><label for="vSem">Vendas por vendedora por semana (estimativa)</label><input type="number" id="vSem" step="1"></div>
+      </div>
+      <div class="cycsum" id="cycSum"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px"><button class="btn" id="confirmMeta" type="button">Confirmar meta</button></div>
+    </div>
+    <div class="ctabs" role="tablist" aria-label="Ciclos" id="cycTabs"></div>
+    <details class="card" style="margin:12px 0 16px"><summary class="lab" style="cursor:pointer">Faixa de preço padrão e estoque considerado</summary>
+      <div class="fields" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));margin-top:12px">
+        <div class="field"><label for="pMin">Valor mín. do mix (R$)</label><input type="number" id="pMin" step="5"></div>
+        <div class="field"><label for="pMax">Valor máx. do mix (R$)</label><input type="number" id="pMax" step="5"></div>
+        <div class="field"><label for="dMin">Desconto mín. %</label><input type="number" id="dMin" step="1"></div>
+        <div class="field"><label for="dMax">Desconto máx. %</label><input type="number" id="dMax" step="1"></div>
+      <label class="chk" style="grid-column:1/-1"><input type="checkbox" id="useHub"> Somar o estoque dos HUBs e galpões à praça onde ficam</label>
+      <label class="chk" style="grid-column:1/-1"><input type="checkbox" id="useER"> Somar o estoque dos ERs desmembrados (São Gonçalo do Amarante RN e Nova Cruz)</label>
+      </div><p class="note">O valor do mix é o que o cliente paga, já com desconto. Campos vazios nos cards usam este padrão.</p></details>
+    <div class="bar"><span id="limInfo"></span><button class="btn ghost sm" id="expAll" type="button">Extrair todos os cards do ciclo</button></div>
+    <div class="cgrid" id="limCards"></div>
+  </section>
+
+  <section id="v-regras" hidden>
+    <div class="rules">
+      <div class="card"><div class="step"><i>1</i> Herói · o produto que aparece</div>
+        <p class="note">É o produto que a vendedora mostra para convencer o cliente. Sai da promoção do ciclo, a partir do preço mínimo abaixo. Entre os produtos que passam, a escolha respeita a faixa de preço e de desconto da praça.</p><div class="fields">
+        <label class="chk"><input type="checkbox" id="heroC15"> Usar só produtos em promoção no ciclo</label>
+        <label class="chk"><input type="checkbox" id="heroValPromo"> Na conta do "vale R$", usar o preço promocional do herói</label>
+        <div class="field"><label for="heroMin">Preço mínimo do herói (R$)</label><input type="number" id="heroMin" step="10"></div>
+        <div class="field"><label for="heroPct">O herói vale pelo menos (% da sacola)</label><input type="number" id="heroPct" step="5"></div></div></div>
+      <div class="card"><div class="step"><i>2</i> Surpresas · os produtos ocultos</div>
+        <p class="note">Escolhidas nesta ordem: produto forte e parado, produto médio e parado, produto forte girando, produto médio girando. Itens da mesma linha do herói têm preferência.</p><div class="fields">
+        <div class="field"><label for="cobPar">Produto "parado" a partir de (dias de estoque)</label><input type="number" id="cobPar" step="30"></div>
+        <div class="field"><label for="maxFraco">Produtos fracos permitidos por sacola</label><input type="number" id="maxFraco" step="1"></div>
+        <label class="chk"><input type="checkbox" id="exPromo"> Não usar produtos em promoção no ciclo como surpresa</label></div></div>
+      <div class="card"><div class="step"><i>3</i> Montagem da sacola</div>
+        <p class="note">Quantos produtos cabem e quais temas podem ser gerados.</p><div class="fields">
+        <div class="field"><label for="iMin">Mínimo de produtos</label><input type="number" id="iMin" step="1"></div>
+        <div class="field"><label for="iMax">Máximo de produtos</label><input type="number" id="iMax" step="1"></div>
+        <div class="field full"><label for="maxCat">Máximo de produtos da mesma categoria</label><input type="number" id="maxCat" step="1"></div>
+        <label class="chk"><input type="checkbox" id="trava"> A sacola nunca sai por menos do que o custo dos produtos</label>
+        <div class="field full"><span class="lab">Temas</span><div class="tchips" id="temas"></div></div></div></div>
+    </div>
+  </section>
+
+  <section id="v-mix" hidden></section>
+  <section id="v-como" hidden></section>
+</main>
+</div>
+<div class="toast" id="toast" hidden></div>

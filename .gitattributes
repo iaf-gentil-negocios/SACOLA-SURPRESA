@@ -1,0 +1,2 @@
+# Padroniza quebras de linha em LF (exigido pelo prettier/eslint do projeto)
+* text=auto eol=lf

@@ -1,0 +1,12 @@
+node_modules
+dist
+.output
+.vinxi
+pnpm-lock.yaml
+package-lock.json
+bun.lock
+routeTree.gen.ts
+referencia
+src/integrations/supabase
+src/lib/mapa/nordeste-dados.ts
+src/lib/mapa/municipios-dados.ts

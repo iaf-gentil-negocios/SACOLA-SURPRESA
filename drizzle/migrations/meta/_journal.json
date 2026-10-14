@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1791479699800,
+      "tag": "0000_create_teste_migracao",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791481704098,
+      "tag": "0001_etapa1_banco_rls_grants",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791563921107,
+      "tag": "0002_etapa5_2_upload_simulacoes_bases",
+      "breakpoints": true
+    }
+  ]
+}
